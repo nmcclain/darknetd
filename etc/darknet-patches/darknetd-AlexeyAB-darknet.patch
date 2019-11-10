@@ -1,0 +1,38 @@
+diff --git a/src/image.c b/src/image.c
+index 8befaa2..13a1f03 100644
+--- a/src/image.c
++++ b/src/image.c
+@@ -313,11 +313,12 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
+     detection_with_class* selected_detections = get_actual_detections(dets, num, thresh, &selected_detections_num, names);
+ 
+     // text output
+-    qsort(selected_detections, selected_detections_num, sizeof(*selected_detections), compare_by_lefts);
+     int i;
++    /*
++    qsort(selected_detections, selected_detections_num, sizeof(*selected_detections), compare_by_lefts);
+     for (i = 0; i < selected_detections_num; ++i) {
+         const int best_class = selected_detections[i].best_class;
+-        printf("%s: %.0f%%", names[best_class],    selected_detections[i].det.prob[best_class] * 100);
++        // printf("%s: %.0f%%", names[best_class],    selected_detections[i].det.prob[best_class] * 100);
+         if (ext_output)
+             printf("\t(left_x: %4.0f   top_y: %4.0f   width: %4.0f   height: %4.0f)\n",
+                 round((selected_detections[i].det.bbox.x - selected_detections[i].det.bbox.w / 2)*im.w),
+@@ -332,6 +333,7 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
+             }
+         }
+     }
++    */
+ 
+     // image output
+     qsort(selected_detections, selected_detections_num, sizeof(*selected_detections), compare_by_probs);
+@@ -372,6 +374,10 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
+             if (top < 0) top = 0;
+             if (bot > im.h - 1) bot = im.h - 1;
+ 
++	    int best_class = selected_detections[i].best_class;
++	    float prob = selected_detections[i].det.prob[best_class];
++            printf("CLASS\t%s\t%.0f\tBBOX\t%d %d %d %d\n", names[best_class], prob*100, left, right, top, bot);
++
+             //int b_x_center = (left + right) / 2;
+             //int b_y_center = (top + bot) / 2;
+             //int b_width = right - left;

@@ -1,0 +1,14 @@
+[Unit]
+Description=raspistill
+After=network.target
+
+[Service]
+ExecStartPre=/bin/mkdir -p /tmp/cap
+ExecStart=/usr/bin/raspistill -w 640 -h 480 --burst -l /tmp/cap.jpg -o /tmp/cap/image%%04d.jpg -tl 500 -t 0 -roi 0.45,0.40,0.20,0.20
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+

@@ -1,0 +1,11 @@
+[Unit]
+Description=nanostill
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/nanostill -w 416 -h 416 -l /home/darknetd/cap/cap.jpg -o /home/darknetd/archive/image%%04d.jpg --timelapse 500 -t 0
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

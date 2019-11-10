@@ -1,0 +1,11 @@
+[Unit]
+Description=darknetd
+After=network.target
+
+[Service]
+ExecStart=/usr/local/sbin/darknetd
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
